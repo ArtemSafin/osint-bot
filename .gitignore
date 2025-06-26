@@ -1,0 +1,18 @@
+# Binaries
+/bin/
+/build/
+/*.exe
+/*.log
+
+# OS files
+.DS_Store
+
+# IDE configs
+.vscode/
+.idea/
+
+# Go
+vendor/
+
+# Env
+.env
