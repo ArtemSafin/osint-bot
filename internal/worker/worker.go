@@ -26,7 +26,7 @@ func Start(bot *tgbotapi.BotAPI) {
 				continue
 			}
 
-			log.Printf("👷 Обрабатываю email: %s для chat_id: %d", task.Email, task.ChatID)
+			log.Printf("Обрабатываю email: %s для chat_id: %d", task.Email, task.ChatID)
 
 			leaks, err := leaklookup.CheckEmail(task.Email)
 			if err != nil {

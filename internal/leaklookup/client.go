@@ -9,8 +9,8 @@ import (
 )
 
 type APIResponse struct {
-	Error   string                   `json:"error"`
-	Message map[string][]interface{} `json:"message"`
+	Error   string          `json:"error"`
+	Message json.RawMessage `json:"message"`
 }
 
 func CheckEmail(email string) (map[string][]interface{}, error) {
@@ -34,8 +34,19 @@ func CheckEmail(email string) (map[string][]interface{}, error) {
 	if err := json.NewDecoder(resp.Body).Decode(&r); err != nil {
 		return nil, err
 	}
+
 	if r.Error == "true" {
-		return nil, fmt.Errorf("Leak-Lookup API error")
+		var errorMsg string
+		if err := json.Unmarshal(r.Message, &errorMsg); err != nil {
+			errorMsg = "Unknown API error"
+		}
+		return nil, fmt.Errorf("Leak-Lookup API error: %s", errorMsg)
 	}
-	return r.Message, nil
+
+	var leaks map[string][]interface{}
+	if err := json.Unmarshal(r.Message, &leaks); err != nil {
+		return nil, fmt.Errorf("не удалось распарсить данные об утечках: %v", err)
+	}
+
+	return leaks, nil
 }
