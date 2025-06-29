@@ -9,18 +9,17 @@ Telegram-бот для выполнения OSINT-задач по email/IP/ни�
 - PostgreSQL (в будущем)
 - Docker + Docker Compose
 - Telegram Bot API
-- HaveIBeenPwned + Epieos
+- Leaklookup API
 
 ## Установка
 
-1. Клонируй репозиторий
-2. Создай `.env` на основе `.env.example`
-3. Запусти `docker-compose up`
+1. Клонировать репозиторий
+2. Создать `.env` на основе `.env.example`
+3. Запустить `docker-compose up`
 
 ## Структура проекта
 
 - `cmd/bot` — точка входа Telegram-бота
 - `internal/leaklookup` — работа с API "leak look up"
 - `internal/queue` — логика очередей Redis
-- `internal/epieos` — работа с Epieos
 - `internal/worker` — воркеры, обрабатывающие задачи
